@@ -15,19 +15,23 @@ public class User {
 	
 	@Column(name = "email")
     private String email;
-	
+
 	@Column(name = "password")
-    private float password;
+    private String password;
+	
+	@Column(name = "confirmPassword")
+    private String confirmPassword;
  
     public User() {
     }
 
-	public User(Integer id, String name, String email, float password) {
+	public User(Integer id, String name, String email, String password, String confirmPassword) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.email = email;
 		this.password = password;
+		this.confirmPassword = confirmPassword;
 	}
 
 	public Integer getId() {
@@ -54,11 +58,19 @@ public class User {
 		this.email = email;
 	}
 
-	public float getPassword() {
+	public String getPassword() {
 		return password;
 	}
-
-	public void setPassword(float password) {
+	
+	public void setPassword(String password) {
 		this.password = password;
+	}
+	
+	public String getConfirmPassword() {
+		return confirmPassword;
+	}
+
+	public void setConfirmPassword(String confirmPassword) {
+		this.confirmPassword = confirmPassword;
 	}
 }
