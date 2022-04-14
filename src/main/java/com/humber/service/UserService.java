@@ -21,8 +21,20 @@ public class UserService {
         return repo.findAll();
     }
      
-    public void save(User product) {
-        repo.save(product);
+    public void save(User user) {
+        repo.save(user);
+    }
+    
+    public User login(User user) {
+        List<User> users = repo.findAll();
+         for (User u : users) {
+            if(user.getEmail().equalsIgnoreCase(u.getEmail())) {
+                if (user.getPassword().equalsIgnoreCase(u.getPassword())) {
+                    return u;
+                }
+            }
+        }
+        return null;
     }
      
     public User get(Integer id) {

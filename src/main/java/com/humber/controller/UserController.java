@@ -17,9 +17,18 @@ public class UserController {
     @Autowired
     private UserService userService;
      
-    @GetMapping("/login")
-    public String login(Model model) {
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public String getLogin() {
         return "login";
+    }
+    
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    public String login(@ModelAttribute("user") User user) {
+        User u = userService.login(user);
+        if(u == null) {
+            return "wrongcredentials"; 
+        }
+        return "redirect:/home";
     }
 
     

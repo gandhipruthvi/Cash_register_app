@@ -6,23 +6,23 @@ import javax.persistence.*;
 @Table(name = "user")
 public class User {
 	
-	@Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 	
-	@Column(name = "name")
+    @Column(name = "name")
     private String name;
 	
-	@Column(name = "email")
+    @Column(name = "email")
     private String email;
 	
-	@Column(name = "password")
-    private float password;
+    @Column(name = "password")
+    private String password;
  
     public User() {
     }
 
-	public User(Integer id, String name, String email, float password) {
+	public User(Integer id, String name, String email, String password) {
 		super();
 		this.id = id;
 		this.name = name;
@@ -54,11 +54,11 @@ public class User {
 		this.email = email;
 	}
 
-	public float getPassword() {
+	public String getPassword() {
 		return password;
 	}
 
-	public void setPassword(float password) {
+	public void setPassword(String password) {
 		this.password = password;
 	}
 }
