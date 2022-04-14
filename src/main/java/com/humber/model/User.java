@@ -6,26 +6,36 @@ import javax.persistence.*;
 @Table(name = "user")
 public class User {
 	
-	@Id
+    @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 	
-	@Column(name = "name")
+    @Column(name = "name")
     private String name;
 	
-	@Column(name = "email")
+    @Column(name = "email")
     private String email;
+<<<<<<< HEAD
 
 	@Column(name = "password")
     private String password;
 	
 	@Column(name = "confirmPassword")
     private String confirmPassword;
+=======
+	
+    @Column(name = "password")
+    private String password;
+>>>>>>> 8b92d078c04b02e1c979ce768c0c988830e7d989
  
     public User() {
     }
 
+<<<<<<< HEAD
 	public User(Integer id, String name, String email, String password, String confirmPassword) {
+=======
+	public User(Integer id, String name, String email, String password) {
+>>>>>>> 8b92d078c04b02e1c979ce768c0c988830e7d989
 		super();
 		this.id = id;
 		this.name = name;
@@ -61,7 +71,11 @@ public class User {
 	public String getPassword() {
 		return password;
 	}
+<<<<<<< HEAD
 	
+=======
+
+>>>>>>> 8b92d078c04b02e1c979ce768c0c988830e7d989
 	public void setPassword(String password) {
 		this.password = password;
 	}

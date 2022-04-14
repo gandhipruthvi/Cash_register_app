@@ -13,19 +13,59 @@ import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class ProductController {
 
     @Autowired
     private ProductService productService;
-
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String getAllProducts() {
-        //productService.getALlProduct();
+    
+    //MIKHAIL
+    @RequestMapping(value = "/home", method = RequestMethod.GET)
+    public String getAllProducts(Model model) {
+        List<Product> listProducts = productService.getAllProduct();
+        model.addAttribute("listProducts", listProducts);
         return "home";
     }
+    @RequestMapping("/deleteByID/{id}")
+    public String deleteCountry(@PathVariable(name="id")Long id) {
+        productService.delete(id);
+        
+        return "redirect:/home";
+    }
+    @GetMapping("/openProductByName")
+    public String openProductByName(Model model) {
+        return "get_by_name";
+    }
+    @GetMapping("/openProductByCategory")
+    public String openProductByCategory(Model model) {
+        List<String> options = new ArrayList<String>();
 
+        options.add("Devices and Electronics");
+        options.add("Books and Reading");
+        options.add("Groceries & Drinks");
+
+        model.addAttribute("options", options);
+        return "get_by_category";
+    }
+    @GetMapping("/getProductByName")
+    public String getProductByName(@RequestParam(name="name")String name, Model model) {
+        List<Product> products = productService.getByName(name);
+        model.addAttribute("products", products);
+        return "show_product";
+    }
+        @GetMapping("/getProductByCategory")
+    public String getProductByCategory(@RequestParam(name="category")String category, Model model) {
+        List<Product> products = productService.getByCategory(category);
+
+        model.addAttribute("products", products);
+
+        return "show_product";
+    }
+    
+    //TIMUR
     @RequestMapping(value = "/newProductForm", method = RequestMethod.GET)
     public String showNewProductForm(Model model) {
         Product product = new Product();
@@ -37,11 +77,12 @@ public class ProductController {
         model.addAttribute("options", options);
         return "addProductForm";
     }
-
     @RequestMapping(value = "/addProduct", method = RequestMethod.POST)
     public String addProduct(@ModelAttribute("product") Product product, Model model) {
         productService.saveProduct(product);
-        return "home";
+        return "redirect:/home";
     }
-
+    
+    //PRUTHVI
+    
 }
