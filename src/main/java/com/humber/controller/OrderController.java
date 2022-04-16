@@ -23,13 +23,26 @@ public class OrderController {
     @Autowired
     private OrderService orderService;
     
-    //MIKHAIL
+    //PRUTHVI
     @RequestMapping(value = "/order_home", method = RequestMethod.GET)
     public String getAllOrders(Model model) {
         List<Order> listOrders = orderService.getAllOrders();
         model.addAttribute("listProducts", listOrders);
         return "order_home";
     }
+    
+  @RequestMapping(value = "/newOrderForm", method = RequestMethod.GET)
+  public String newOrderForm(Model model) {
+      Order order= new Order();
+      model.addAttribute("order", order);
+      List<String> options = new ArrayList<String>();
+      options.add("Devices and Electronics");
+      options.add("Books and Reading");
+      options.add("Groceries & Drinks");
+      model.addAttribute("options", options);
+      return "addOrderForm";
+  }
+    
 //    @RequestMapping("/deleteByID/{id}")
 //    public String deleteCountry(@PathVariable(name="id")Long id) {
 //        orderService.delete(id);
@@ -67,17 +80,7 @@ public class OrderController {
 //    }
     
     //TIMUR
-//    @RequestMapping(value = "/newProductForm", method = RequestMethod.GET)
-//    public String showNewProductForm(Model model) {
-//        Product product = new Product();
-//        model.addAttribute("product", product);
-//        List<String> options = new ArrayList<String>();
-//        options.add("Devices and Electronics");
-//        options.add("Books and Reading");
-//        options.add("Groceries & Drinks");
-//        model.addAttribute("options", options);
-//        return "addProductForm";
-//    }
+
 //    @RequestMapping(value = "/addProduct", method = RequestMethod.POST)
 //    public String addProduct(@ModelAttribute("product") Product product, Model model) {
 //        orderService.saveProduct(product);

@@ -28,16 +28,16 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr th:each="product : ${listProducts}">
-                        <td th:text="${product.id}">Product ID</td>
-                        <td th:text="${product.name}">Name</td>
-                        <td th:text="${product.price}">Price</td>
-                        <td th:text="${product.quantity}">Quantity</td>
-                        <td th:text="${product.category}">Category</td>
+                    <tr th:each="order : ${listOrders}">
+                        <td th:text="${order.id}">Product ID</td>
+                        <td th:text="${order.name}">Name</td>
+                        <td th:text="${order.price}">Price</td>
+                        <td th:text="${order.quantity}">Quantity</td>
+                        <td th:text="${order.category}">Category</td>
                         <td>
-                            <a>Edit</a>
+                            <a th:href="@{'/acceptOrder/' + ${order.id}}">Accept</a>
                             &nbsp;&nbsp;&nbsp;&nbsp;
-                            <a th:href="@{'/deleteByID/' + ${product.id}}">Delete</a>
+                            <a th:href="@{'/declineOrder/' + ${order.id}}">Decline</a>
                         </td>
                     </tr>
                 </tbody>
