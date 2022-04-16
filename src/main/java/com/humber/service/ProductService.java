@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProductService {
@@ -46,5 +47,16 @@ public class ProductService {
         }
     }
     return newList;
+    }
+
+    public Product getProductById(long id) {
+        Optional<Product> optional = productRepository.findById(id);
+        Product product = null;
+        if (optional.isPresent()) {
+            product = optional.get();
+        } else {
+            throw new RuntimeException("Country not found for id :: " + id);
+        }
+        return product;
     }
 }

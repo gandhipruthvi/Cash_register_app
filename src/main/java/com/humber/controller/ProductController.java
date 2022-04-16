@@ -77,10 +77,34 @@ public class ProductController {
         model.addAttribute("options", options);
         return "addProductForm";
     }
+
     @RequestMapping(value = "/addProduct", method = RequestMethod.POST)
     public String addProduct(@ModelAttribute("product") Product product, Model model) {
         productService.saveProduct(product);
-        return "redirect:/home";
+        return "redirect:/product_home";
+    }
+
+    @RequestMapping(value = "/products/{id}", method = RequestMethod.GET)
+    public String showUpdate(@PathVariable( value = "id") String id, Model model) {
+
+        // get event from the service
+        Product product = productService.getProductById(Long.valueOf(id));
+        model.addAttribute("product", product);
+        List<String> options = new ArrayList<String>();
+        options.add("Devices and Electronics");
+        options.add("Books and Reading");
+        options.add("Groceries & Drinks");
+        model.addAttribute("options", options);
+        return "edit_product";
+    }
+
+    @RequestMapping(value = "/products/restock/{id}", method = RequestMethod.GET)
+    public String showRestock(@PathVariable( value = "id") String id, Model model) {
+
+        // get event from the service
+        Product product = productService.getProductById(Long.valueOf(id));
+        model.addAttribute("product", product);
+        return "restock";
     }
     
     //PRUTHVI
