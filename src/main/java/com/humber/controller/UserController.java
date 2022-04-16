@@ -8,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import com.humber.model.Product;
 import com.humber.model.User;
 import com.humber.service.UserService;
  
@@ -28,6 +29,10 @@ public class UserController {
         if(u == null) {
             return "wrongcredentials"; 
         }
+        if(u.getEmail() == "jack@mail.com")
+        {
+        	
+        }
         return "redirect:/home";
     }
 
@@ -37,5 +42,15 @@ public class UserController {
         model.addAttribute("userForm", new User());
         return "register";
     }
-
+    
+    @PostMapping("/registerUser")
+    public String registerUser(@ModelAttribute("user") User user, Model model) {
+        userService.save(user);
+        return "redirect:/";
+    }
+    
+    @GetMapping("/home")
+    public String openProdcutSection(Model model) {
+        return "home";
+    }
 }

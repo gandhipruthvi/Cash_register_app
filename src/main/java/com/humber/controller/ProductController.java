@@ -23,11 +23,11 @@ public class ProductController {
     private ProductService productService;
     
     //MIKHAIL
-    @RequestMapping(value = "/home", method = RequestMethod.GET)
+    @RequestMapping(value = "/product_home", method = RequestMethod.GET)
     public String getAllProducts(Model model) {
         List<Product> listProducts = productService.getAllProduct();
         model.addAttribute("listProducts", listProducts);
-        return "home";
+        return "product_home";
     }
     @RequestMapping("/deleteByID/{id}")
     public String deleteCountry(@PathVariable(name="id")Long id) {
