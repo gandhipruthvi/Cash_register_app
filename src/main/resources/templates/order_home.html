@@ -11,22 +11,20 @@
         <form id="logoutForm" method="POST" th:action="@{/logout}">
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         </form>
-        <h5>Welcome <span sec:authentication="name"></span> | <a href="/">Logout</a></h5>
+        <h5><a href="/home">Welcome</a> | <a href="/">Logout</a></h5>
         <div align="center">
-            <h1>List of Products</h1>
-            <div><a href="newProductForm">Add New Product</a></div>
-            <div><a href="openProductByName">Get Product by Name</a></div>
-            <div><a href="openProductByCategory">Get Product by Category</a></div>
+            <h1>List of Orders</h1>
+            <div><a href="newOrderForm">Add New Order</a></div>
             <table border="1" cellpadding="10">
                 <br/><br/>
                 <thead>
                     <tr>
+                        <th>Order ID</th>
                         <th>Product ID</th>
-                        <th>Name</th>
-                        <th>Price</th>
+                        <th>Total</th>
                         <th>Quantity</th>
-                        <th>Category</th>
-                        <th>Actions</th>
+                        <th>Status</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>

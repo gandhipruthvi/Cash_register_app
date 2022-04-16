@@ -11,7 +11,7 @@
         <form id="logoutForm" method="POST" th:action="@{/logout}">
             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
         </form>
-        <h5>Welcome <span sec:authentication="name"></span> | <a href="/">Logout</a></h5>
+        <h5><a href="/home">Welcome</a> | <a href="/">Logout</a></h5>
         <div align="center">
             <h1>List of Products</h1>
             <div><a href="product_home">Products Section</a></div>
