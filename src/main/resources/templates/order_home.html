@@ -1,54 +1,91 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
-    <meta charset="utf-8">
-    <title>Create an account</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+<meta charset="utf-8">
+<title>Create an account</title>
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+	integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+	crossorigin="anonymous">
 </head>
 <body>
-  <div class="container">
-    <div sec:authorize="isAuthenticated()">
-        <form id="logoutForm" method="POST" th:action="@{/logout}">
-            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-        </form>
-        <h5><a href="/home">Welcome</a> | <a href="/">Logout</a></h5>
-        <div align="center">
-            <h1>List of Orders</h1>
-            <div><a href="newOrderForm">Add New Order</a></div>
-            <table border="1" cellpadding="10">
-                <br/><br/>
-                <thead>
-                    <tr>
-                        <th>Order ID</th>
-                        <th>Product ID</th>
-                        <th>Total</th>
-                        <th>Quantity</th>
-                        <th>Status</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr th:each="order : ${listOrders}">
-                        <td th:text="${order.id}">Product ID</td>
-                        <td th:text="${order.name}">Name</td>
-                        <td th:text="${order.price}">Price</td>
-                        <td th:text="${order.quantity}">Quantity</td>
-                        <td th:text="${order.category}">Category</td>
-                        <td>
-                            <a th:href="@{'/acceptOrder/' + ${order.id}}">Accept</a>
-                            &nbsp;&nbsp;&nbsp;&nbsp;
-                            <a th:href="@{'/declineOrder/' + ${order.id}}">Decline</a>
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-  </div>
+	<nav class="navbar navbar-expand-lg navbar-light"
+		style="background-color: #e3f2fd;">
+		<a class="navbar-brand" href="/home">Cashier App</a>
+		<button class="navbar-toggler" type="button" data-toggle="collapse"
+			data-target="#navbarNav" aria-controls="navbarNav"
+			aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarNav">
+			<ul class="navbar-nav">
+				<li class="nav-item"><a class="nav-link" href="/home">Home
+						<span class="sr-only">(current)</span>
+				</a></li>
+				<li class="nav-item"><a class="nav-link" href="/product_home">Products</a>
+				</li>
+				<li class="nav-item active"><a class="nav-link" href="/order_home">Orders</a>
+				</li>
+				<li class="nav-item">
+					<form id="logoutForm" method="POST" th:action="@{/logout}">
+						<input type="hidden" name="${_csrf.parameterName}"
+							value="${_csrf.token}" /> <a class="nav-link" href="/">Logout</a>
+					</form>
+				</li>
 
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
-  <script src="/js/main.js"></script>
+			</ul>
+		</div>
+	</nav>
+	<div class="container">
+		<div sec:authorize="isAuthenticated()">
+			<div align="center">
+				<br />
+				<h1>List of Orders</h1>
+				<div>
+					<a href="newOrderForm">Add New Order</a>
+				</div>
+				<table class="table">
+					<br />
+					<br />
+					<thead>
+						<tr>
+							<th>Order ID</th>
+							<th>Product ID</th>
+							<th>Total</th>
+							<th>Quantity</th>
+							<th>Status</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="order : ${listOrders}">
+							<td th:text="${order.id}">Order ID</td>
+							<td th:text="${order.product_id}">Product ID</td>
+							<td th:text="${order.total}">Total</td>
+							<td th:text="${order.quantity}">Quantity</td>
+							<td th:text="${order.status}">Status</td>
+							<td><a th:href="@{'/acceptOrder/' + ${order.id}}" class="btn btn-success">Accept</a>
+								&nbsp;&nbsp;&nbsp;&nbsp; <a
+								th:href="@{'/declineOrder/' + ${order.id}}" class="btn btn-danger">Decline</a></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+
+	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+		integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"
+		integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN"
+		crossorigin="anonymous"></script>
+	<script
+		src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"
+		integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV"
+		crossorigin="anonymous"></script>
+	<script src="/js/main.js"></script>
 </body>
 </html>

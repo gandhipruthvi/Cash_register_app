@@ -1,29 +1,71 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
-    <meta charset="UTF-8">
-    <title>Add Order</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+	<meta charset="UTF-8">
+	<title>Add Order</title>
+	<link rel="stylesheet"
+		href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+		integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z"
+		crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.6.0.js"
+		integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+		crossorigin="anonymous"></script>
 </head>
 <body>
-    <main style="margin: 16px auto; max-width: 600px">
-        <h2>Add New Product</h2>
-        <form action="#" th:action="@{/addOrder}"  th:object="${order}" method="POST">
-                <!-- <label for="orderName">Order Name</label>
-                <input type="text" th:field="*{name}" class="form-control" id="orderName" placeholder="Enter O Name" autofocus>
-                <label for="productName">Product Price</label>
-                <input type="number" min="1" step="any" th:field="*{price}" class="form-control" id="productPrice" placeholder="Enter Product Price">
-                <label for="productName">Product Quantity</label>
-                <input type="number" th:field="*{quantity}" class="form-control" id="productQuantity" placeholder="Enter Product Quantity">
-                <label for="selectCategory">Select category</label>
-                <select th:field="*{category}" class="form-control" id="selectCategory" >
-                    <option th:each="option : ${options}" th:value="${option}" th:text="${option}"></option>
-                </select> -->
-            <br/>
-            <button type="submit" class="btn btn-primary">Submit</button>
-            <button class="btn btn-danger" >Cancel</button>
-        </form>
-    </main>
-
+	<main style="margin: 16px auto; max-width: 600px">
+		<h2>Add New Order</h2>
+		<form action="#" th:action="@{/addOrder}" th:object="${order}"
+			method="POST">
+			<label for="productID">Product</label> 
+			<select th:field="*{product_id}" class="form-control" id="selectProduct">
+				<option th:each="product : ${listProducts}" th:value="${product.id}"
+					th:text="${product.name}"></option>
+			</select> 
+			<label for="orderQuantity">Order Quantity</label> 
+			<input type="number" th:field="*{quantity}" class="form-control" id="orderQuantity" placeholder="Enter Product Quantity"> 
+			<label for="orderTotal">Order Total</label> 
+			<input type="number" min="1" step="any" th:field="*{total}" class="form-control" id="orderTotal" placeholder="Total Price" disabled> 
+			<br />
+			<button type="submit" class="btn btn-primary">Submit</button>
+			<button class="btn btn-danger">Cancel</button>
+		</form>
+	</main>
+	
+	<script type="text/javascript" th:inline="javascript">
+	/*<![CDATA[*/
+	    $(document).ready(function() {
+	    	var listProducts = /*[[${listProducts}]]*/ "Test";
+	    	var selectedProd = listProducts[0];
+	    	setMax();
+	    	
+	    	$('select').on('change', function() {
+	    		var productId = this.value;
+	    		$.each(listProducts, function(index, value) {
+	    			if(productId == value['id'])
+	    			{
+	    				selectedProd = value;
+	    				setMax();
+	    				calcTotal();
+	    			}
+    			});
+	    	});
+	    	
+	    	$("#orderQuantity").on("input", function() {
+	    		calcTotal();
+    		});
+	    	
+	    	function calcTotal() {
+	    		$("#orderTotal").val($('#orderQuantity').val() * selectedProd.price);
+	    	}
+	    	
+	    	function setMax() {
+	    		$("#orderQuantity").attr({
+			       "max" : selectedProd.quantity
+			    });
+	    	}
+	    });
+	    /*]]>*/
+	</script>
 </body>
 </html>

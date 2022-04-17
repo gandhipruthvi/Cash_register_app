@@ -1,8 +1,16 @@
 package com.humber.model;
 
 import java.sql.Date;
+import java.time.LocalDate;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import org.springframework.beans.factory.annotation.Value;
 
 @Entity
 @Table(name = "orders")
@@ -22,12 +30,12 @@ public class Order {
     private int quantity;
     
     @Column(name = "date")
-    private Date date;
+    private LocalDate date = LocalDate.now();
     
     @Column(name = "status")
-    private String status;
+    private String status = "unmarked";
 
-	public Order(Long id, Long product_id, double total, int quantity, Date date, String status) {
+	public Order(Long id, Long product_id, double total, int quantity, LocalDate date, String status) {
 		super();
 		this.id = id;
 		this.product_id = product_id;
@@ -72,11 +80,11 @@ public class Order {
 		this.quantity = quantity;
 	}
 
-	public Date getDate() {
+	public LocalDate getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(LocalDate date) {
 		this.date = date;
 	}
 

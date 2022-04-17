@@ -22,7 +22,7 @@ public class OrderService {
         return (List<Order>) orderRepository.findAll();
     }
 
-    public Order saveProduct(Order order) {
+    public Order saveOrder(Order order) {
         return orderRepository.save(order);
     }
 }
