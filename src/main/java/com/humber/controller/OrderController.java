@@ -50,4 +50,16 @@ public class OrderController {
 		orderService.saveOrder(order);
         return "redirect:/order_home";
     }
+	
+	@RequestMapping("/acceptOrder/{id}")
+    public String acceptOrder(@PathVariable(name="id")Long id) {
+		orderService.updateOrderStatus(id, "accepted");
+        return "redirect:/order_home";
+    }
+	
+	@RequestMapping("/declineOrder/{id}")
+    public String declineOrder(@PathVariable(name="id")Long id) {
+		orderService.updateOrderStatus(id, "declined");
+        return "redirect:/order_home";
+    }
 }

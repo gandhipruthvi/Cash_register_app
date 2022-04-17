@@ -25,8 +25,8 @@
 				</a></li>
 				<li class="nav-item"><a class="nav-link" href="/product_home">Products</a>
 				</li>
-				<li class="nav-item active"><a class="nav-link" href="/order_home">Orders</a>
-				</li>
+				<li class="nav-item active"><a class="nav-link"
+					href="/order_home">Orders</a></li>
 				<li class="nav-item">
 					<form id="logoutForm" method="POST" th:action="@{/logout}">
 						<input type="hidden" name="${_csrf.parameterName}"
@@ -65,9 +65,18 @@
 							<td th:text="${order.total}">Total</td>
 							<td th:text="${order.quantity}">Quantity</td>
 							<td th:text="${order.status}">Status</td>
-							<td><a th:href="@{'/acceptOrder/' + ${order.id}}" class="btn btn-success">Accept</a>
-								&nbsp;&nbsp;&nbsp;&nbsp; <a
-								th:href="@{'/declineOrder/' + ${order.id}}" class="btn btn-danger">Decline</a></td>
+							<td>
+								<div th:switch="${order.status}">
+									<p th:case="'unmarked'">
+										<a th:href="@{'/acceptOrder/' + ${order.id}}"
+											class="btn btn-success">Accept</a> &nbsp;&nbsp;&nbsp;&nbsp; <a
+											th:href="@{'/declineOrder/' + ${order.id}}"
+											class="btn btn-danger">Decline</a>
+									</p>
+									<p th:case="*"></p>
+								</div>
+
+							</td>
 						</tr>
 					</tbody>
 				</table>
