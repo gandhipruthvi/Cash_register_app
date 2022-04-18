@@ -33,7 +33,7 @@ public class ProductController {
     public String deleteCountry(@PathVariable(name="id")Long id) {
         productService.delete(id);
         
-        return "redirect:/home";
+        return "redirect:/product_home";
     }
     @GetMapping("/openProductByName")
     public String openProductByName(Model model) {

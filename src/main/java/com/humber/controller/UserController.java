@@ -29,11 +29,7 @@ public class UserController {
         if(u == null) {
             return "wrongcredentials"; 
         }
-        if(u.getEmail() == "jack@mail.com")
-        {
-        	
-        }
-        return "redirect:/home";
+        return "redirect:/product_home";
     }
 
     
@@ -48,9 +44,9 @@ public class UserController {
         userService.save(user);
         return "redirect:/";
     }
-    
-    @GetMapping("/home")
-    public String openProdcutSection(Model model) {
-        return "home";
-    }
+
+//    @GetMapping("/product_home")
+//    public String openProdcutSection(Model model) {
+//        return "product_home";
+//    }
 }
